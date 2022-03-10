@@ -1,0 +1,62 @@
+{
+    "@odata.context": "https://graph.microsoft.com/beta/$metadata#deviceManagement/deviceConfigurations/$entity",
+    "@odata.type": "#microsoft.graph.windows10CustomConfiguration",
+    "id": "a4536c2c-aa72-4ec5-9236-c6203ec182d6",
+    "lastModifiedDateTime": "2022-02-23T01:59:13.1966453Z",
+    "deviceManagementApplicabilityRuleOsEdition": null,
+    "deviceManagementApplicabilityRuleOsVersion": null,
+    "deviceManagementApplicabilityRuleDeviceMode": null,
+    "description": null,
+    "displayName": "ACSC Windows Hardening Guidelines-User Rights Assignment",
+    "version": 1,
+    "omaSettings": [
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "SeCreatePermanentPrivilege",
+            "description": "[]",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/UserRights/CreatePermanentSharedObjects",
+            "isEncrypted": false,
+            "value": "\"\""
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "SeCreateTokenPrivilege",
+            "description": "[]",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/UserRights/CreateToken",
+            "isEncrypted": false,
+            "value": "\"\""
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "SeEnableDelegationPrivilege",
+            "description": "[]",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/UserRights/EnableDelegation",
+            "isEncrypted": false,
+            "value": "\"\""
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "SeLockMemoryPrivilege",
+            "description": "[]",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/UserRights/LockMemory",
+            "isEncrypted": false,
+            "value": "\"\""
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "SeTrustedCredManAccessPrivilege",
+            "description": "[]",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/UserRights/AccessCredentialManagerAsTrustedCaller",
+            "isEncrypted": false,
+            "value": "\"\""
+        },
+        {
+            "@odata.type": "#microsoft.graph.omaSettingString",
+            "displayName": "SeTcbPrivilege",
+            "description": "[]",
+            "omaUri": "./Device/Vendor/MSFT/Policy/Config/UserRights/ActAsPartOfTheOperatingSystem",
+            "isEncrypted": false,
+            "value": "\"\""
+        }
+    ]
+}
