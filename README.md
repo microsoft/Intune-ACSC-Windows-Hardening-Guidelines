@@ -1,10 +1,16 @@
 # Intune ACSC Windows Hardening Guidelines
 
-These Microsoft Intune policies were put together to help organisations comply with the [Australian Cyber Security Centre's (ACSC) Windows 10 Hardening Guidance](https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-microsoft-windows-10-version-21h1-workstations). These policies were originally provided by the ACSC as Group Policy Objects. This repository will provide exports of Intune policies that organisations will be able to import into their Intune tenant for deployment to their Windows devices. While the intent of these policies is to assist in an organisations compliance efforts, Microsoft does not represent that use of these policies will create compliance with the Australian Cyber Security Centre's guidance.
+These Microsoft Intune policies were put together to help organisations comply with the [Australian Cyber Security Centre's (ACSC) Windows 10 Hardening Guidance](https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-microsoft-windows-10-version-21h1-workstations). These policies were originally provided by the ACSC as Group Policy Objects. This repository will provide exports of Intune policies that organisations will be able to import into their Intune tenant for deployment to their Windows devices. 
+
+Additional Intune policies have been provided for organisations who are also required to comply with the [ACSC's Office Hardening Guidance](https://www.cyber.gov.au/acsc/view-all-content/publications/hardening-microsoft-365-office-2021-office-2019-and-office-2016) and the 
+[ACSC's Office Macro Security](https://www.cyber.gov.au/acsc/view-all-content/publications/microsoft-office-macro-security) publication.
+
+While the intent of these policies is to assist in an organisations compliance efforts, Microsoft does not represent that use of these policies will create compliance with the Australian Cyber Security Centre's guidance.
 
 ## What's included?
 
-There are four policies contained within this repository.
+### Windows
+There are four Windows hardening policies and a script contained within this repository.
 1. [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json)
     - This Settings Catalog policy contains all currently available settings recommended by the ACSC for hardening Windows. 
 > Important: [some settings are not be available for configuration via Settings Catalog](docs/Policies%20not%20configured.md). Ensure that you verify this representation of the hardening guidance meets your requirements.
@@ -15,9 +21,17 @@ There are four policies contained within this repository.
     - This Attack Surface Reduction (ASR) policy configures each of the ASR rules recommended by the ACSC in **audit** mode. [ASR rules should be tested](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-deployment-test?view=o365-worldwide) for compatibility issues in any environment before enforcement.
 4. [ACSC Windows Hardening Guidelines-User Rights Assignment](policies/ACSC%20Windows%20Hardening%20Guidelines-User%20Rights%20Assignment.json)
     - This Custom configuration profile configures specific User Rights Assignments to be blank, as recommended by the ACSC.
+5. [UserApplicationHardening-RemoveFeatures](scripts/UserApplicationHardening-RemoveFeatures.ps1)
+    - This PowerShell script removes PowerShell v2.0, .NET Framework 3.5 (and below) and Internet Explorer 11 (if on Windows 10).
 
 Supplementary documentation has been provided for the [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json) policy, detailing each configured setting, description of the setting and a link to the corresponding Microsoft Docs page. 
 - [ACSC Windows Hardening Guidelines documentation](docs/ACSC%20Windows%20Hardening%20Guidelines.md)
+
+### Microsoft 365 Apps for Enterprise
+Organisations that are required to harden Microsoft 365 Apps for Enterprise (formerly known as Office 365 ProPlus) with the ACSC recommended hardening policies, including limiting the execution of macros to Trusted Publishers can use the supplied policies. See the [Microsoft 365 Apps for Enterprise README](office/README.md) for additional information and steps to import the policies.
+
+### Microsoft Edge
+Organisations that are looking to harden only Microsoft Edge, without applying all additional Windows hardening recommended by the ACSC can use the supplied policy. See [Microsoft Edge README](edge/README.md) for additional information and steps to import the policy.
 
 ## What's not included?
 
@@ -33,14 +47,14 @@ Although the below settings are configured as a part of the ACSC Windows Hardeni
 - Microsoft Defender Application Guard
     - Intune provides the ability to [enable and configure Microsoft Defender Application Guard](https://docs.microsoft.com/en-us/mem/intune/protect/endpoint-security-asr-profile-settings#app-and-browser-isolation-profile). The configuration of Application Guard requires additional input from the organisation, such as a Windows network isolation policy.
 - Windows Update
-    - Organisations typically standardise on a management platform that provides patching capabilities. Microsofts recommendation is to move to [Windows Update for Business](https://docs.microsoft.com/en-us/mem/intune/protect/windows-update-for-business-configure).
+    - Organisations typically standardise on a management platform that provides patching capabilities. Microsoft's recommendation is to move to [Windows Update for Business](https://docs.microsoft.com/en-us/mem/intune/protect/windows-update-for-business-configure).
 - [Settings that are not available via Settings Catalog, Endpoint Security or device configuration](docs/Policies%20not%20configured.md). 
     - If a setting does not have a corresponding Settings Catalog, Endpoint Security or device configuration setting, it was not configured.
     - A possible way to implement these settings would be with a PowerShell script, deployed via Intune.
 
 ## Requirements
 
-These policies were developed on Azure AD Joined Windows 10 & Windows 11 devices and can be deployed to either Operating System where Intune is providing the device configuration workload, regardless of join type.  Ensure that devices are [currently supported](https://docs.microsoft.com/en-us/windows/release-health/supported-versions-windows-client) and the appropiate Microsoft Endpoint Manager licences have been assigned.
+These policies were developed on Azure AD Joined Windows 10 & Windows 11 devices and can be deployed to either Operating System where Intune is providing the device configuration workload, regardless of join type.  Ensure that devices are [currently supported](https://docs.microsoft.com/en-us/windows/release-health/supported-versions-windows-client) and the appropriate Microsoft Endpoint Manager licences have been assigned.
 
 Ensure that [KB5005565](https://support.microsoft.com/en-us/topic/september-14-2021-kb5005565-os-builds-19041-1237-19042-1237-and-19043-1237-292cf8ed-f97b-4cd8-9883-32b71e3e6b44) has been installed, which was released as a part of the September 14th, 2021 quality updates. This KB contains updated [Mobile Device Management](https://techcommunity.microsoft.com/t5/intune-customer-success/the-latest-in-group-policy-settings-parity-in-mobile-device/ba-p/2269167) policies. Without this update, the policies provided will not be applied successfully.
 
@@ -57,6 +71,8 @@ After running through the import instructions below, the following policies and 
     - This Attack surface reduction policy will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Endpoint Security > Attack surface reduction*
 4. A Custom configuration profile, named: *ACSC Windows Hardening Guidelines-User Rights Assignment*
     - This Custom configuration profile will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*
+5. A PowerShell script, named: *UserApplicationHardening-RemoveFeatures*
+    - This PowerShell script will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > PowerShell scripts*
 
 >Note: When using Graph Explorer, you may need to consent to permissions if you have not done so before. For more information, please see [Working with Graph Explorer](https://docs.microsoft.com/en-us/graph/graph-explorer/graph-explorer-features).
 
@@ -88,10 +104,23 @@ After running through the import instructions below, the following policies and 
 3. Copy the JSON in the [ACSC Windows Hardening Guidelines-User Rights Assignment](policies/ACSC%20Windows%20Hardening%20Guidelines-User%20Rights%20Assignment.json) and paste it in the request body
 4. (Optional) modify the *name* value if required
 
+### UserApplicationHardening-RemoveFeatures (PowerShell script)
+1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
+2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
+    * *Name*: *UserApplicationHardening-RemoveFeatures*
+3. Upload [UserApplicationHardening-RemoveFeatures.ps1](scripts/UserApplicationHardening-RemoveFeatures.ps1)
+    * *Run this script using the logged on credentials*: *No*
+    * *Enforce script signature check*: *No*
+    * *Run script in 64 bit PowerShell Host*: *No*
+
 ## Additional Considerations
 
 - The setting 'Allow Telemetry' has been configured to: 'Security'. Keep in mind that other services require different telemetry settings, such as [Update Compliance](https://docs.microsoft.com/en-us/windows/deployment/update/update-compliance-monitor), which requires [Basic telemetry](https://docs.microsoft.com/en-us/windows/deployment/update/update-compliance-configuration-manual#mobile-device-management-policies).
 - The setting 'Disable One Drive File Sync' has been configured to: 'disable sync'. This disables OneDrive. Modify this setting to 'sync enabled' to enable OneDrive.
+
+## Support
+
+For help and questions about using this project, please reach out to memaufedgov@microsoft.com. If you notice any discrepancies in the policies provided, please raise an issue as described in [SUPPORT](SUPPORT.md).
 
 ## Contributing
 
