@@ -69,7 +69,7 @@ After running through the import instructions below, the following policies and 
 
 1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
-    * *Name*: *UserApplicationHardening-RemoveFeatures*
+    * *Name*: *OfficeMacroHardening-PreventActivationofOLE*
 3. Upload [OfficeMacroHardening-PreventActivationofOLE.ps1](scripts/OfficeMacroHardening-PreventActivationofOLE.ps1)
     * *Run this script using the logged on credentials*: *No*
     * *Enforce script signature check*: *No*
