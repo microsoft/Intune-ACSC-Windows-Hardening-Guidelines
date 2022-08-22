@@ -71,6 +71,6 @@ After running through the import instructions below, the following policies and 
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
     * *Name*: *OfficeMacroHardening-PreventActivationofOLE*
 3. Upload [OfficeMacroHardening-PreventActivationofOLE.ps1](scripts/OfficeMacroHardening-PreventActivationofOLE.ps1)
-    * *Run this script using the logged on credentials*: *No*
+    * *Run this script using the logged on credentials*: *Yes*
     * *Enforce script signature check*: *No*
     * *Run script in 64 bit PowerShell Host*: *No*
