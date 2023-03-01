@@ -84,7 +84,7 @@ After running through the import instructions below, the following policies and 
 1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
     * *Name*: *Block certificates from trusted publishers that are only installed in the current user certificate store*
-3. Upload [Block certificates from trusted publishers that are only installed in the current user certificate store.ps1](scripts/Block certificates from trusted publishers that are only installed in the current user certificate store.ps1)
+3. Upload [Block certificates from trusted publishers that are only installed in the current user certificate store.ps1](scripts/Block%20certificates%20from%20trusted%20publishers%20that%20are%20only%20installed%20in%20the%20current%20user%20certificate%20store.ps1)
     * *Run this script using the logged on credentials*: *No*
     * *Enforce script signature check*: *No*
     * *Run script in 64 bit PowerShell Host*: *No*
