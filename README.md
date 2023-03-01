@@ -10,7 +10,7 @@ While the intent of these policies is to assist in an organisations compliance e
 ## What's included?
 
 ### Windows
-There are four Windows hardening policies and a script contained within this repository.
+There are four Windows hardening policies and a collection of scripts contained within this repository.
 1. [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json)
     - This Settings Catalog policy contains all currently available settings recommended by the ACSC for hardening Windows. 
 > Important: [some settings are not be available for configuration via Settings Catalog](docs/Policies%20not%20configured.md). Ensure that you verify this representation of the hardening guidance meets your requirements.
@@ -23,6 +23,7 @@ There are four Windows hardening policies and a script contained within this rep
     - This Custom configuration profile configures specific User Rights Assignments to be blank, as recommended by the ACSC.
 5. [UserApplicationHardening-RemoveFeatures](scripts/UserApplicationHardening-RemoveFeatures.ps1)
     - This PowerShell script removes PowerShell v2.0, .NET Framework 3.5 (and below) and Internet Explorer 11 (if on Windows 10).
+6. A [collection of PowerShell scripts](scripts/) that configures registry keys for [settings that are currently unavailable to be configured via Settings Catalog](docs/Policies%20configured%20via%20registry.md).
 
 Supplementary documentation has been provided for the [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json) policy, detailing each configured setting, description of the setting and a link to the corresponding Microsoft Docs page. 
 - [ACSC Windows Hardening Guidelines documentation](docs/ACSC%20Windows%20Hardening%20Guidelines.md)
@@ -73,6 +74,7 @@ After running through the import instructions below, the following policies and 
     - This Custom configuration profile will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*
 5. A PowerShell script, named: *UserApplicationHardening-RemoveFeatures*
     - This PowerShell script will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > PowerShell scripts*
+6. Multiple PowerShell scripts, each corresponding to the name of the [registry key they configure](docs/Policies%20configured%20via%20registry.md)
 
 >Note: When using Graph Explorer, you may need to consent to permissions if you have not done so before. For more information, please see [Working with Graph Explorer](https://docs.microsoft.com/en-us/graph/graph-explorer/graph-explorer-features).
 
@@ -109,6 +111,16 @@ After running through the import instructions below, the following policies and 
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
     * *Name*: *UserApplicationHardening-RemoveFeatures*
 3. Upload [UserApplicationHardening-RemoveFeatures.ps1](scripts/UserApplicationHardening-RemoveFeatures.ps1)
+    * *Run this script using the logged on credentials*: *No*
+    * *Enforce script signature check*: *No*
+    * *Run script in 64 bit PowerShell Host*: *No*
+
+### Multiple PowerShell Scripts
+For each PowerShell script in [scripts](scripts/):
+1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
+2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
+    * *Name*: *< name of the corresponding PowerShell script >*
+3. Upload the corresponding PowerShell script
     * *Run this script using the logged on credentials*: *No*
     * *Enforce script signature check*: *No*
     * *Run script in 64 bit PowerShell Host*: *No*
