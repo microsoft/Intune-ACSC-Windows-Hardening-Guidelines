@@ -16,6 +16,8 @@ While the intent of these policies is to assist in an organisations compliance e
     - This Settings Catalog policy configures macros to be enabled for Trusted Publishers in Microsoft 365 Apps for Enterprise. Trusted Publishers will need to be deployed via a separate policy.
 4. [OfficeMacroHardening-PreventActivationofOLE](scripts/OfficeMacroHardening-PreventActivationofOLE.ps1)
     - This PowerShell script will set the required registry keys to prevent the activation of Object Linking and Embedding (OLE) packages.
+5. [Block certificates from trusted publishers that are only installed in the current user certificate store](scripts/Block certificates from trusted publishers that are only installed in the current user certificate store.ps1)
+    - This PowerShell script will block certificates from trusted publishers that are only installed in the current user certificate store.
 
 Supplementary documentation has been provided for the each policy, detailing each configured setting, description of the setting and a link to the corresponding Microsoft Docs page. 
 - [Microsoft 365 Apps for Enterprise Hardening Guidelines documentation](docs)
@@ -40,6 +42,8 @@ After running through the import instructions below, the following policies and 
 3. A Settings Catalog policy, named: *Macros Enabled for Trusted Publishers*
     - This Settings Catalog policy will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*    
 4. A PowerShell script, named: *OfficeMacroHardening-PreventActivationofOLE*
+    - This PowerShell script will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > PowerShell scripts*
+5. A PowerShell script, named: *Block certificates from trusted publishers that are only installed in the current user certificate store*
     - This PowerShell script will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > PowerShell scripts*
 
 >Note: When using Graph Explorer, you may need to consent to permissions if you have not done so before. For more information, please see [Working with Graph Explorer](https://docs.microsoft.com/en-us/graph/graph-explorer/graph-explorer-features).
@@ -72,5 +76,15 @@ After running through the import instructions below, the following policies and 
     * *Name*: *OfficeMacroHardening-PreventActivationofOLE*
 3. Upload [OfficeMacroHardening-PreventActivationofOLE.ps1](scripts/OfficeMacroHardening-PreventActivationofOLE.ps1)
     * *Run this script using the logged on credentials*: *Yes*
+    * *Enforce script signature check*: *No*
+    * *Run script in 64 bit PowerShell Host*: *No*
+
+### Block certificates from trusted publishers that are only installed in the current user certificate store (PowerShell script)
+
+1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
+2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
+    * *Name*: *Block certificates from trusted publishers that are only installed in the current user certificate store*
+3. Upload [Block certificates from trusted publishers that are only installed in the current user certificate store.ps1](scripts/Block%20certificates%20from%20trusted%20publishers%20that%20are%20only%20installed%20in%20the%20current%20user%20certificate%20store.ps1)
+    * *Run this script using the logged on credentials*: *No*
     * *Enforce script signature check*: *No*
     * *Run script in 64 bit PowerShell Host*: *No*
