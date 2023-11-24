@@ -36,42 +36,45 @@ To import the policies, use [Graph Explorer](https://aka.ms/ge).
 After running through the import instructions below, the following policies and profiles will be imported into the organisations Intune tenant. 
 >Note: After importing the policies, the policies will need to be assigned to a group.
 1. A Settings Catalog policy, named: *ACSC Office Hardening Guidelines*
-    - This Settings Catalog policy will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*
+    - This Settings Catalog policy will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > Configuration profiles*
 2. A Settings Catalog policy, named: *All Macros Disabled*
-    - This Settings Catalog policy will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*
+    - This Settings Catalog policy will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > Configuration profiles*
 3. A Settings Catalog policy, named: *Macros Enabled for Trusted Publishers*
-    - This Settings Catalog policy will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*    
+    - This Settings Catalog policy will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > Configuration profiles*    
 4. A PowerShell script, named: *OfficeMacroHardening-PreventActivationofOLE*
-    - This PowerShell script will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > PowerShell scripts*
+    - This PowerShell script will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > PowerShell scripts*
 5. A PowerShell script, named: *Block certificates from trusted publishers that are only installed in the current user certificate store*
-    - This PowerShell script will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > PowerShell scripts*
+    - This PowerShell script will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > PowerShell scripts*
 
 >Note: When using Graph Explorer, you may need to consent to permissions if you have not done so before. For more information, please see [Working with Graph Explorer](https://docs.microsoft.com/en-us/graph/graph-explorer/graph-explorer-features).
 
 ### ACSC Office Hardening Guidelines (Settings Catalog)
 
-1. Navigate to [Graph Explorer](https://aka.ms/ge) and authenticate
-2. Create a *POST* request, using the *beta* schema to the configuration policies endpoint: https://graph.microsoft.com/beta/deviceManagement/configurationPolicies
-3. Copy the JSON in the [ACSC Office Hardening Guidelines](policies/ACSC%20Office%20Hardening%20Guidelines.json) policy and paste it in the request body
-4. (Optional) modify the *name* value if required
+1. Save the [ACSC Office Hardening Guidelines](policies/ACSC%20Office%20Hardening%20Guidelines.json) policy to your local device
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
+1. Import a policy, under *Devices > Windows >  Configuration profiles > Create > Import Policy*
+1. Name the policy, select *Browse for files* under *Policy file* and navigate to the saved policy from step 1
+1. Click *Save*
 
 ### All Macros Disabled (Settings Catalog)
 
-1. Navigate to [Graph Explorer](https://aka.ms/ge) and authenticate
-2. Create a *POST* request, using the *beta* schema to the configuration policies endpoint: https://graph.microsoft.com/beta/deviceManagement/configurationPolicies
-3. Copy the JSON in the [All Macros Disabled](policies/All%20Macros%20Disabled.json) policy and paste it in the request body
-4. (Optional) modify the *name* value if required
+1. Save the [All Macros Disabled](policies/All%20Macros%20Disabled.json) policy to your local device
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
+1. Import a policy, under *Devices > Windows >  Configuration profiles > Create > Import Policy*
+1. Name the policy, select *Browse for files* under *Policy file* and navigate to the saved policy from step 1
+1. Click *Save*
 
 ### Macros Enabled for Trusted Publishers (Settings Catalog)
 
-1. Navigate to [Graph Explorer](https://aka.ms/ge) and authenticate
-2. Create a *POST* request, using the *beta* schema to the configuration policies endpoint: https://graph.microsoft.com/beta/deviceManagement/configurationPolicies
-3. Copy the JSON in the [Macros Enabled for Trusted Publishers](policies/Macros%20Enabled%20for%20Trusted%20Publishers.json) policy and paste it in the request body
-4. (Optional) modify the *name* value if required
+1. Save the [Macros Enabled for Trusted Publishers](policies/Macros%20Enabled%20for%20Trusted%20Publishers.json) policy to your local device
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
+1. Import a policy, under *Devices > Windows >  Configuration profiles > Create > Import Policy*
+1. Name the policy, select *Browse for files* under *Policy file* and navigate to the saved policy from step 1
+1. Click *Save*
 
 ### OfficeMacroHardening-PreventActivationofOLE (PowerShell script)
 
-1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
     * *Name*: *OfficeMacroHardening-PreventActivationofOLE*
 3. Upload [OfficeMacroHardening-PreventActivationofOLE.ps1](scripts/OfficeMacroHardening-PreventActivationofOLE.ps1)
@@ -81,7 +84,7 @@ After running through the import instructions below, the following policies and 
 
 ### Block certificates from trusted publishers that are only installed in the current user certificate store (PowerShell script)
 
-1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
     * *Name*: *Block certificates from trusted publishers that are only installed in the current user certificate store*
 3. Upload [Block certificates from trusted publishers that are only installed in the current user certificate store.ps1](scripts/Block%20certificates%20from%20trusted%20publishers%20that%20are%20only%20installed%20in%20the%20current%20user%20certificate%20store.ps1)

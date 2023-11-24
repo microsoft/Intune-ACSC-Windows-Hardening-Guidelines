@@ -44,7 +44,7 @@ Although the below settings are configured as a part of the ACSC Windows Hardeni
     - Manage disk encryption with a [Disk Encryption Endpoint Security policy](https://docs.microsoft.com/en-us/mem/intune/protect/encrypt-devices).
 - Controlled Folder Access
     - The configuration for Controlled Folder Access requires input that is unique to each organisation.
-    - [Configure Controlled Folder Access](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-controlled-folders?view=o365-worldwide) by creating an Attack surface reduction policy in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under *Endpoint Security > Attack surface reduction*
+    - [Configure Controlled Folder Access](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-controlled-folders?view=o365-worldwide) by creating an Attack surface reduction policy in the [Microsoft Intune console](https://aka.ms/in), under *Endpoint Security > Attack surface reduction*
 - Microsoft Defender Application Guard
     - Intune provides the ability to [enable and configure Microsoft Defender Application Guard](https://docs.microsoft.com/en-us/mem/intune/protect/endpoint-security-asr-profile-settings#app-and-browser-isolation-profile). The configuration of Application Guard requires additional input from the organisation, such as a Windows network isolation policy.
 - Windows Update
@@ -65,25 +65,26 @@ To import the policies, use [Graph Explorer](https://aka.ms/ge).
 After running through the import instructions below, the following policies and profiles will be imported into the organisations Intune tenant. 
 >Note: After importing the policies, the policies will need to be assigned to a group.
 1. A Settings Catalog policy, named: *ACSC Windows Hardening Guidelines*
-    - This Settings Catalog policy will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*
+    - This Settings Catalog policy will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > Configuration profiles*
 2. A Security Baseline, named: *Windows Security Baseline (for use with ACSC Windows Hardening Guidelines)*
-    - This Security Baseline will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Endpoint Security > Security Baselines > Security Baseline for Windows 10 and later*
+    - This Security Baseline will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Endpoint Security > Security Baselines > Security Baseline for Windows 10 and later*
 3. An Attack surface reduction policy, named: *ACSC Windows Hardening Guidelines-Attack Surface Reduction*
-    - This Attack surface reduction policy will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Endpoint Security > Attack surface reduction*
+    - This Attack surface reduction policy will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Endpoint Security > Attack surface reduction*
 4. A Custom configuration profile, named: *ACSC Windows Hardening Guidelines-User Rights Assignment*
-    - This Custom configuration profile will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > Configuration profiles*
+    - This Custom configuration profile will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > Configuration profiles*
 5. A PowerShell script, named: *UserApplicationHardening-RemoveFeatures*
-    - This PowerShell script will be found in the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac), under: *Devices > Windows > PowerShell scripts*
+    - This PowerShell script will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > PowerShell scripts*
 6. Multiple PowerShell scripts, each corresponding to the name of the [registry key they configure](docs/Policies%20configured%20via%20registry.md)
 
 >Note: When using Graph Explorer, you may need to consent to permissions if you have not done so before. For more information, please see [Working with Graph Explorer](https://docs.microsoft.com/en-us/graph/graph-explorer/graph-explorer-features).
 
 ### ACSC Windows Hardening Guidelines (Settings Catalog)
 
-1. Navigate to [Graph Explorer](https://aka.ms/ge) and authenticate
-2. Create a *POST* request, using the *beta* schema to the configuration policies endpoint: https://graph.microsoft.com/beta/deviceManagement/configurationPolicies
-3. Copy the JSON in the [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json) policy and paste it in the request body
-4. (Optional) modify the *name* value if required
+1. Save the [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json) policy to your local device
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
+1. Import a policy, under *Devices > Windows >  Configuration profiles > Create > Import Policy*
+1. Name the policy, select *Browse for files* under *Policy file* and navigate to the saved policy from step 1
+1. Click *Save*
 
 ### Windows Security Baseline (for use with ACSC Windows Hardening Guidelines) (Windows Security Baseline)
 
@@ -107,7 +108,7 @@ After running through the import instructions below, the following policies and 
 4. (Optional) modify the *name* value if required
 
 ### UserApplicationHardening-RemoveFeatures (PowerShell script)
-1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
     * *Name*: *UserApplicationHardening-RemoveFeatures*
 3. Upload [UserApplicationHardening-RemoveFeatures.ps1](scripts/UserApplicationHardening-RemoveFeatures.ps1)
@@ -117,7 +118,7 @@ After running through the import instructions below, the following policies and 
 
 ### Multiple PowerShell Scripts
 For each PowerShell script in [scripts](scripts/):
-1. Navigate to the [Microsoft Endpoint Manager Admin Center](https://aka.ms/memac)
+1. Navigate to the [Microsoft Intune console](https://aka.ms/in)
 2. Add a new PowerShell script, under *Devices > Windows > Powershell scripts*
     * *Name*: *< name of the corresponding PowerShell script >*
 3. Upload the corresponding PowerShell script
@@ -129,6 +130,12 @@ For each PowerShell script in [scripts](scripts/):
 
 - The setting 'Allow Telemetry' has been configured to: 'Security'. Keep in mind that other services require different telemetry settings, such as [Update Compliance](https://docs.microsoft.com/en-us/windows/deployment/update/update-compliance-monitor), which requires [Basic telemetry](https://docs.microsoft.com/en-us/windows/deployment/update/update-compliance-configuration-manual#mobile-device-management-policies).
 - The setting 'Disable One Drive File Sync' has been configured to: 'disable sync'. This disables OneDrive. Modify this setting to 'sync enabled' to enable OneDrive.
+
+### Windows 365 and Azure Virtual Desktop Considerations
+As both Windows 365 and Azure Virtual Desktop rely on remote desktop connectivity to the endpoint, you will need to modify the following settings from the [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json) policy to enable remote connectivity.
+- Modify *Windows Components > Remote Desktop Services > Remote Desktop Session Host > Connections > Allow users to connect remotely by using Remote Desktop Services* from *Disabled* to *Enabled*
+- Remove the setting *"Deny Access From Network"*
+- Remove the setting *"Deny Remote Desktop Services Log On"*
 
 ## Support
 
