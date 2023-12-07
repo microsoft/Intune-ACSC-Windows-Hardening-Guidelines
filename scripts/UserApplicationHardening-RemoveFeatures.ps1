@@ -15,7 +15,7 @@ try {
 
 ## Removing .NET 3.5 (and below)
 try {
-    Disable-WindowsOptionalFeature -Online -FeatureName NetFx3 -All -NoRestart
+    Disable-WindowsOptionalFeature -Online -FeatureName NetFx3 -NoRestart
 
 } catch {
     exit $LASTEXITCODE
