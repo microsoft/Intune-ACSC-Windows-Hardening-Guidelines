@@ -3,7 +3,7 @@ These scripts configure the ACSC settings missing from the Intune Settings Catal
 Some of the registry ones are re-writes of @midineenMSFT, re-writing the function to allow it to be duplicated across every file, using
 variables defined at the start of the script.
 
-The last seven scripts use registry and secedit to implement the final missing ACSC configurations
+The last five scripts use registry and secedit to implement the final missing ACSC configurations
 
 | **Policy Name** | **Script Location** |
 | -- | -- |
@@ -23,9 +23,7 @@ The last seven scripts use registry and secedit to implement the final missing A
 |System cryptography: Use FIPS compliant algorithms for encryption, hashing, and signing|[FIPSAlgorithmPolicy.ps1](../scripts/FIPSAlgorithmPolicy.ps1)|
 |System objects: Require case insensitivity for non-Windows subsystems|[ObCaseInsensitive.ps1](../scripts/ObCaseInsensitive.ps1)|
 |System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)|[ProtectionMode.ps1](../scripts/ProtectionMode.ps1)|
-|Account Lockout Policy: Account Lockout Threshold|[AccountLockoutThreshold.ps1](../scripts/AccountLockoutThreshold.ps1)|
-|Account Lockout Policy: Account Lockout Duration|[AccountLockoutDuration.ps1 ](../scripts/AccountLockoutDuration.ps1 )|
-|Account Lockout Policy: Reset account lockout counter after|[AccountLockoutReset.ps1](../scripts/AccountLockoutReset.ps1)|
+|Account Lockout Policy: Account Lockout Threshold,Duration,Reset Counter|[AccountLockout.ps1](../scripts/AccountLockout.ps1)|
 |User Rights Assignment: Allow log on through Remote Desktop Services|[AllowRDSLogon.ps1](../scripts/AllowRDSLogon.ps1)|
 |Interactive logon: Number of previous logons to cache (in case domain controller is not available)|[CacheLogons.ps1](../scripts/CacheLogons.ps1)|
 |Network access: Allow anonymous SID/Name translation|[AnonSID.ps1](../scripts/AnonSID.ps1)|
