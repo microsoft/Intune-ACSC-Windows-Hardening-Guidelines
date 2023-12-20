@@ -6,13 +6,13 @@ See LICENSE in the project root for license information.
 
 <#
 Script for missing Settings Catalog settings for ACSC Windows Hardening 
-Network security: LDAP client signing requirements
+Network security: Allow LocalSystem NULL session fallback
 #>
 
 # Registry variables to set
-$registrypath = "HKLM:\System\CurrentControlSet\Services\LDAP"
-$name = "LDAPClientIntegrity"
-$value = "1"
+$registrypath = "HKLM:\System\CurrentControlSet\Control\LSA\MSV1_0"
+$name = "allownullsessionfallback"
+$value = "0"
 $type = "DWORD"
 
 ##### No need to change anything below #####

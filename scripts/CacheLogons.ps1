@@ -1,19 +1,13 @@
 <#
-.COPYRIGHT
-Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
-See LICENSE in the project root for license information.
-#>
-
-<#
 Script for missing Settings Catalog settings for ACSC Windows Hardening 
-Network security: LDAP client signing requirements
+Interactive logon: Number of previous logons to cache (in case domain controller is not available)
 #>
 
 # Registry variables to set
-$registrypath = "HKLM:\System\CurrentControlSet\Services\LDAP"
-$name = "LDAPClientIntegrity"
+$registrypath = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon"
+$name = "CachedLogonsCount"
 $value = "1"
-$type = "DWORD"
+$type = "String"
 
 ##### No need to change anything below #####
 Function WriteReg {
