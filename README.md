@@ -139,7 +139,7 @@ As both Windows 365 and Azure Virtual Desktop rely on remote desktop connectivit
 
 ## Support
 
-For help and questions about using this project, please reach out to memaufedgov@microsoft.com. If you notice any discrepancies in the policies provided, please raise an issue as described in [SUPPORT](SUPPORT.md).
+For help and questions about using this project, please reach out to intuneaugov@microsoft.com. If you notice any discrepancies in the policies provided, please raise an issue as described in [SUPPORT](SUPPORT.md).
 
 ## Contributing
 
