@@ -6,13 +6,13 @@ See LICENSE in the project root for license information.
 
 <#
 Script for missing Settings Catalog settings for ACSC Windows Hardening 
-Network security: LDAP client signing requirements
+Microsoft network server: Amount of idle time required before suspending session
 #>
 
 # Registry variables to set
-$registrypath = "HKLM:\System\CurrentControlSet\Services\LDAP"
-$name = "LDAPClientIntegrity"
-$value = "1"
+$registrypath = "HKLM:\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters"
+$name = "autodisconnect"
+$value = "15"
 $type = "DWORD"
 
 ##### No need to change anything below #####
