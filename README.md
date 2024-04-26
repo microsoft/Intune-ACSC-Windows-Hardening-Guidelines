@@ -10,20 +10,18 @@ While the intent of these policies is to assist in an organisations compliance e
 ## What's included?
 
 ### Windows
-There are four Windows hardening policies and a collection of scripts contained within this repository.
+There are three Windows hardening policies and a collection of scripts contained within this repository.
 1. [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json)
     - This Settings Catalog policy contains all currently available settings recommended by the ACSC for hardening Windows. 
 > Important: [some settings are not be available for configuration via Settings Catalog](docs/Policies%20not%20configured.md). Ensure that you verify this representation of the hardening guidance meets your requirements.
 2. [Windows Security Baseline (for use with ACSC Windows Hardening Guidelines)](policies/Windows%20Security%20Baseline%20(for%20use%20with%20ACSC%20Windows%20Hardening%20Guidelines).json)
-    -  Microsoft provides a Windows Security Baseline, which is comprised of groups of pre-configured Windows settings that help you apply and enforce granular security settings that are recommended by the relevant security teams within Microsoft. The [Microsoft Security Baseline can be deployed with Intune](https://docs.microsoft.com/en-us/mem/intune/protect/security-baselines).
+    - Microsoft provides a Windows Security Baseline (currently version 23H2), which is comprised of groups of pre-configured Windows settings that help you apply and enforce granular security settings that are recommended by the relevant security teams within Microsoft. The [Microsoft Security Baseline can be deployed with Intune](https://docs.microsoft.com/en-us/mem/intune/protect/security-baselines).
     - This Microsoft Security Baseline has been modified so that its settings do not conflict with those of the ACSC Windows Hardening Guidelines. All non-conflicting settings have been left as-is.
 3. [ACSC Windows Hardening Guidelines-Attack Surface Reduction](policies/ACSC%20Windows%20Hardening%20Guidelines-Attack%20Surface%20Reduction.json)
     - This Attack Surface Reduction (ASR) policy configures each of the ASR rules recommended by the ACSC in **audit** mode. [ASR rules should be tested](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-deployment-test?view=o365-worldwide) for compatibility issues in any environment before enforcement.
-4. [ACSC Windows Hardening Guidelines-User Rights Assignment](policies/ACSC%20Windows%20Hardening%20Guidelines-User%20Rights%20Assignment.json)
-    - This Custom configuration profile configures specific User Rights Assignments to be blank, as recommended by the ACSC.
-5. [UserApplicationHardening-RemoveFeatures](scripts/UserApplicationHardening-RemoveFeatures.ps1)
+4. [UserApplicationHardening-RemoveFeatures](scripts/UserApplicationHardening-RemoveFeatures.ps1)
     - This PowerShell script removes PowerShell v2.0, .NET Framework 3.5 (and below) and Internet Explorer 11 (if on Windows 10).
-6. A [collection of PowerShell scripts](scripts/) that configures registry keys for [settings that are currently unavailable to be configured via Settings Catalog](docs/Policies%20configured%20via%20registry.md).
+5. A [collection of PowerShell scripts](scripts/) that configures registry keys for [settings that are currently unavailable to be configured via Settings Catalog](docs/Policies%20configured%20via%20registry.md).
 
 Supplementary documentation has been provided for the [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json) policy, detailing each configured setting, description of the setting and a link to the corresponding Microsoft Docs page. 
 - [ACSC Windows Hardening Guidelines documentation](docs/ACSC%20Windows%20Hardening%20Guidelines.md)
@@ -70,11 +68,9 @@ After running through the import instructions below, the following policies and 
     - This Security Baseline will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Endpoint Security > Security Baselines > Security Baseline for Windows 10 and later*
 3. An Attack surface reduction policy, named: *ACSC Windows Hardening Guidelines-Attack Surface Reduction*
     - This Attack surface reduction policy will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Endpoint Security > Attack surface reduction*
-4. A Custom configuration profile, named: *ACSC Windows Hardening Guidelines-User Rights Assignment*
-    - This Custom configuration profile will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > Configuration profiles*
-5. A PowerShell script, named: *UserApplicationHardening-RemoveFeatures*
+4. A PowerShell script, named: *UserApplicationHardening-RemoveFeatures*
     - This PowerShell script will be found in the [Microsoft Intune console](https://aka.ms/in), under: *Devices > Windows > PowerShell scripts*
-6. Multiple PowerShell scripts, each corresponding to the name of the [registry key they configure](docs/Policies%20configured%20via%20registry.md)
+5. Multiple PowerShell scripts, each corresponding to the name of the [registry key they configure](docs/Policies%20configured%20via%20registry.md)
 
 >Note: When using Graph Explorer, you may need to consent to permissions if you have not done so before. For more information, please see [Working with Graph Explorer](https://docs.microsoft.com/en-us/graph/graph-explorer/graph-explorer-features).
 
@@ -89,22 +85,15 @@ After running through the import instructions below, the following policies and 
 ### Windows Security Baseline (for use with ACSC Windows Hardening Guidelines) (Windows Security Baseline)
 
 1. Navigate to [Graph Explorer](https://aka.ms/ge) and authenticate
-2. Create a *POST* request, using the *beta* schema to the Windows Security Baseline policy endpoint: https://graph.microsoft.com/beta/deviceManagement/templates/034ccd46-190c-4afc-adf1-ad7cc11262eb/createInstance
+2. Create a *POST* request, using the *beta* schema to the Windows Security Baseline policy endpoint: https://graph.microsoft.com/beta/deviceManagement/configurationPolicies
 3. Copy the JSON in the [Windows Security Baseline (for use with ACSC Windows Hardening Guidelines)](policies/Windows%20Security%20Baseline%20(for%20use%20with%20ACSC%20Windows%20Hardening%20Guidelines).json) policy and paste it in the request body
 4. (Optional) modify the *name* value if required
 
-###  ACSC Windows Hardening Guidelines - Attack Surface Reduction Rules (Endpoint Security)
+### ACSC Windows Hardening Guidelines - Attack Surface Reduction Rules (Endpoint Security)
 
 1. Navigate to [Graph Explorer](https://aka.ms/ge) and authenticate
 2. Create a *POST* request, using the *beta* schema to the Attack Surface Reduction policy endpoint: https://graph.microsoft.com/beta/deviceManagement/templates/0e237410-1367-4844-bd7f-15fb0f08943b/createInstance
 3. Copy the JSON in the [ACSC Windows Hardening Guidelines-Attack Surface Reduction](policies/ACSC%20Windows%20Hardening%20Guidelines-Attack%20Surface%20Reduction.json) policy and paste it in the request body
-4. (Optional) modify the *name* value if required
-
-### ACSC Windows Hardening Guidelines - User Rights Assignment (Custom Configuration Profile)
-
-1. Navigate to [Graph Explorer](https://aka.ms/ge) and authenticate
-2. Create a *POST* request, using the *beta* schema to the device configuration endpoint: https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations
-3. Copy the JSON in the [ACSC Windows Hardening Guidelines-User Rights Assignment](policies/ACSC%20Windows%20Hardening%20Guidelines-User%20Rights%20Assignment.json) and paste it in the request body
 4. (Optional) modify the *name* value if required
 
 ### UserApplicationHardening-RemoveFeatures (PowerShell script)
@@ -127,7 +116,6 @@ For each PowerShell script in [scripts](scripts/):
     * *Run script in 64 bit PowerShell Host*: *No*
 
 ## Additional Considerations
-
 - The setting 'Allow Telemetry' has been configured to: 'Security'. Keep in mind that other services require different telemetry settings, such as [Update Compliance](https://docs.microsoft.com/en-us/windows/deployment/update/update-compliance-monitor), which requires [Basic telemetry](https://docs.microsoft.com/en-us/windows/deployment/update/update-compliance-configuration-manual#mobile-device-management-policies).
 - The setting 'Disable One Drive File Sync' has been configured to: 'disable sync'. This disables OneDrive. Modify this setting to 'sync enabled' to enable OneDrive.
 
@@ -136,6 +124,11 @@ As both Windows 365 and Azure Virtual Desktop rely on remote desktop connectivit
 - Modify *Windows Components > Remote Desktop Services > Remote Desktop Session Host > Connections > Allow users to connect remotely by using Remote Desktop Services* from *Disabled* to *Enabled*
 - Remove the setting *"Deny Access From Network"*
 - Remove the setting *"Deny Remote Desktop Services Log On"*
+
+### Remote Help Considerations
+Remote Help requires the following modifications in the [ACSC Windows Hardening Guidelines](policies/ACSC%20Windows%20Hardening%20Guidelines.json) policy:
+- Modify *User Account Control Behavior Of The Elevation Prompt for Standard Users* from *Automatically deny elevation requests* to *Prompt for credentials on the secure desktop*
+- Modify *Require trusted path for credential entry* from *Enabled* to *Disabled*
 
 ## Support
 
